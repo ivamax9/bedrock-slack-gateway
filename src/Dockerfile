@@ -23,6 +23,8 @@ ENV AWS_REGION "us-east-1"
 ENV BEDROCK_KNOWLEDGE_BASE_ID "BEDROCK_KNOWLEDGE_BASE_ID"
 ENV BEDROCK_INVOKE_MODEL_ID "anthropic.claude-3-haiku-20240307-v1:0"
 ENV BEDROCK_KNOWLEDGE_BASE_MODEL_ARN "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-haiku-20240307-v1:0"
+# For Kendra based scenarios
+ENV KENDRA_INDEX_ID ""
 
 # Command to run the application
 CMD ["uvicorn", "main:api", "--host", "0.0.0.0", "--port", "8000", "--log-level", "info"]

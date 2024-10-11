@@ -2,7 +2,7 @@ import logging
 from slack_bolt.async_app import AsyncApp
 from slack_bolt.adapter.fastapi.async_handler import AsyncSlackRequestHandler
 from fastapi import FastAPI, Request
-from call_bedrock import call_bedrock_invoke, call_bedrock_knowledgebase
+from call_bedrock import call_bedrock_invoke, call_bedrock_knowledgebase, call_kendra_knowledgebase
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -47,6 +47,14 @@ async def bedrock_find_command(ack, respond, command):
     await respond("Let me have a look...")
     prompt = command["text"]
     result = call_bedrock_knowledgebase(prompt)
+    await respond(f':thinking_face: Question: *{prompt}*\n:bulb: Answer: {result}')
+
+@app.command("/kendra-find")
+async def bedrock_find_command(ack, respond, command):
+    await ack()
+    await respond("Let me have a look...")
+    prompt = command["text"]
+    result = call_kendra_knowledgebase(prompt)
     await respond(f':thinking_face: Question: *{prompt}*\n:bulb: Answer: {result}')
 
 api = FastAPI()
